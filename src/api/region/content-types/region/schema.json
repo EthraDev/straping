@@ -4,7 +4,8 @@
   "info": {
     "singularName": "region",
     "pluralName": "regions",
-    "displayName": "Régions"
+    "displayName": "Regions",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

@@ -17,11 +17,6 @@
       "unique": true,
       "required": true
     },
-    "type": {
-      "type": "string",
-      "unique": true,
-      "required": true
-    },
     "habitat": {
       "type": "string"
     },
@@ -41,6 +36,16 @@
       "relation": "oneToOne",
       "target": "api::region.region",
       "inversedBy": "pokemon"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name"
+    },
+    "types": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::type.type",
+      "mappedBy": "pokemons"
     }
   }
 }

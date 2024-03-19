@@ -801,13 +801,18 @@ export interface ApiPokemonPokemon extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
-    type: Attribute.String & Attribute.Required & Attribute.Unique;
     habitat: Attribute.String;
     image: Attribute.Media & Attribute.Required;
     region: Attribute.Relation<
       'api::pokemon.pokemon',
       'oneToOne',
       'api::region.region'
+    >;
+    slug: Attribute.UID<'api::pokemon.pokemon', 'name'>;
+    types: Attribute.Relation<
+      'api::pokemon.pokemon',
+      'manyToMany',
+      'api::type.type'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -832,7 +837,8 @@ export interface ApiRegionRegion extends Schema.CollectionType {
   info: {
     singularName: 'region';
     pluralName: 'regions';
-    displayName: 'R\u00E9gions';
+    displayName: 'Regions';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -862,6 +868,33 @@ export interface ApiRegionRegion extends Schema.CollectionType {
   };
 }
 
+export interface ApiTypeType extends Schema.CollectionType {
+  collectionName: 'types';
+  info: {
+    singularName: 'type';
+    pluralName: 'types';
+    displayName: 'Type';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    name: Attribute.String;
+    pokemons: Attribute.Relation<
+      'api::type.type',
+      'manyToMany',
+      'api::pokemon.pokemon'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::type.type', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::type.type', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -882,6 +915,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::pokemon.pokemon': ApiPokemonPokemon;
       'api::region.region': ApiRegionRegion;
+      'api::type.type': ApiTypeType;
     }
   }
 }
