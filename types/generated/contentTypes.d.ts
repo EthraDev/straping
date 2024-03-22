@@ -841,7 +841,7 @@ export interface ApiRegionRegion extends Schema.CollectionType {
     description: '';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     name: Attribute.String & Attribute.Required & Attribute.Unique;
@@ -852,7 +852,6 @@ export interface ApiRegionRegion extends Schema.CollectionType {
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
       'api::region.region',
       'oneToOne',
@@ -874,14 +873,13 @@ export interface ApiTypeType extends Schema.CollectionType {
     singularName: 'type';
     pluralName: 'types';
     displayName: 'Type';
-    description: '';
   };
   options: {
     draftAndPublish: false;
   };
   attributes: {
-    name: Attribute.String;
-    pokemons: Attribute.Relation<
+    name: Attribute.String & Attribute.Required & Attribute.Unique;
+    pokemon: Attribute.Relation<
       'api::type.type',
       'manyToMany',
       'api::pokemon.pokemon'

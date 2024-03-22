@@ -4,8 +4,7 @@
   "info": {
     "singularName": "type",
     "pluralName": "types",
-    "displayName": "Type",
-    "description": ""
+    "displayName": "Type"
   },
   "options": {
     "draftAndPublish": false
@@ -13,9 +12,11 @@
   "pluginOptions": {},
   "attributes": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
-    "pokemons": {
+    "pokemon": {
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::pokemon.pokemon",

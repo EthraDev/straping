@@ -45,7 +45,7 @@
       "type": "relation",
       "relation": "manyToMany",
       "target": "api::type.type",
-      "mappedBy": "pokemons"
+      "mappedBy": "pokemon"
     }
   }
 }
